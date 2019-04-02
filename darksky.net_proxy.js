@@ -3,8 +3,8 @@
 var http = require('http');
 var https = require('https');
 
-var port = 9800;
-var forecastIOKey = 'PUT_FORECAST_IO_API_KEY_HERE';
+var port = 5500;
+var darkskyKey = 'bf061b1d09ea1b58faf23e066752aa75';
 var cachedForecasts = {};
 
 var cityToLatLon = {
@@ -36,7 +36,7 @@ function handleRequest(request, response) {
   }
   console.log('REQ  ', request.url);
   response.setHeader('Content-Type', 'application/json');
-  response.setHeader('X-Powered-By', 'fIO.proxy');
+  response.setHeader('Powered By', 'Dark Sky', 'https://darksky.net/poweredby/');
   var cachedForecast = cachedForecasts[cityName];
   if (cachedForecast && Date.now() < cachedForecast.expiresAt) {
     response.end(JSON.stringify(cachedForecast));
@@ -54,8 +54,8 @@ function handleRequest(request, response) {
 
 function getForecast(coords, callback) {
   var options = {
-    host: 'api.forecast.io',
-    path: '/forecast/' + forecastIOKey + '/' + coords
+    host: 'api.darksky.net',
+    path: '/darksky/' + bf061b1d09ea1b58faf23e066752aa75 + '/' + coords
   };
   https.request(options, function(response) {
     var resp = '';
@@ -73,5 +73,5 @@ function getForecast(coords, callback) {
 var httpServer = http.createServer(handleRequest);
 
 httpServer.listen(port, function() {
-  console.log('Forecast.io proxy server started...', port);
+  console.log('darksky.net proxy server started...', port);
 });
