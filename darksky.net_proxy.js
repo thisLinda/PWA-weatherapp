@@ -3,8 +3,8 @@
 var http = require('http');
 var https = require('https');
 
-var port = 5500;
-var darkskyKey = 'bf061b1d09ea1b58faf23e066752aa75';
+var port = 5500;//port changed for VSC
+var darkskyKey = 'key removed';
 var cachedForecasts = {};
 
 var cityToLatLon = {
